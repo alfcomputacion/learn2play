@@ -6,11 +6,11 @@
         <div v-if="screen === 'config'" id="config-container">
         <h1>Anagram Hunt</h1>
         <SelectInput 
-            :currentValue="operation"
-            v-model="operation"
+            :currentValue="maxNumber"
+            v-model="wordLength"
             label="Word length"
             id="wordLength"
-            :options="operations"/>
+            :options="numbers"/>
         <ol>
             <li>Chose Word Length</li>
             <li>Press <strong>Play!</strong></li>
@@ -66,7 +66,7 @@ export default {
       ],
       operation: 'x',
       maxNumber: '10',
-      buttons: [1,2,3,4,5,6,7,8,9,0],
+      wordLength: [5,6,7,8],
       screen: 'config',
       input: '',
       operands: {num1: '1', num2: '1'},
@@ -76,7 +76,7 @@ export default {
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
-        anagrams  
+        anagrams 
 
     }
 
@@ -84,7 +84,7 @@ export default {
   computed: {
     numbers: function(){
          const numbers = [];
-         for(let number=2; number <= 100; number++){
+         for(let number=5; number <= 8; number++){
           numbers.push([number,number]);
          }
          return numbers;

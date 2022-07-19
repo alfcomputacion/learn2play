@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <TheHeader @goto-page="changePage" />
-       
+       <!-- We condition the page 
+          any time page changes it goes 
+               to the right page -->
         <div v-if="page === 'mathificent'" class="mathificent">
           <TheMathificent />
         </div>
@@ -11,11 +13,16 @@
         </div>      
         <div  v-else-if="page === 'home'">
           <div class="header-space"></div>
-          <TheQuotes  />
+          <TheQuotes  @goto-page="changePage"/>
           
-          <h2>Home </h2>
         </div>
-
+      <div v-if="page === 'contactus'" class="contactus">
+        <form action="">
+          <ContacUs />
+        </form>
+      </div>
+ 
+    <TheFooter @goto-page="changePage" />
   </div>
 </template>
 
@@ -25,6 +32,8 @@ import TheMathificent from './TheMathificent.vue';
 import TheHeader from './TheHeader.vue';
 import AnagramHunt from './AnagramHunt.vue';
 import TheQuotes from './TheQuotes.vue';
+import TheFooter from './TheFooter.vue';
+import ContacUs from './ContacUs.vue';
 
 export default {
   name: 'App',
@@ -43,7 +52,9 @@ export default {
     TheMathificent,
     TheHeader,
     AnagramHunt,
-    TheQuotes
+    TheQuotes,
+    TheFooter,
+    ContacUs
 }
 }
 </script>
