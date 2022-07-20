@@ -60,7 +60,10 @@
                     <div class="col">
                     <button class="btn btn-primary number-button" 
                             @click="setInput(button)"
-                            v-for="button in buttons" :key="button">{{button}}</button>
+                            v-for="button in buttons" 
+                            :key="button">{{button}}
+                            </button>
+
                     <button @click="clearAnswer" id="clear-button" class="btn btn-primary" >Clear</button>
                     </div>
                 </div>

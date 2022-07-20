@@ -1,6 +1,6 @@
 <template>
     <footer>
-<nav class="bottom-nav text-center">
+<nav class="bottom-nav fixed-bottom text-center">
         <div class="social">
             <a @click="$emit('goto-page', 'contactus')" href="#"><i class="fa fa-envelope fa-2x  p-4" aria-hidden="true"></i></a>
             <a href="https://twitter.com/alfcomputacion"><i class="fab fa-twitter fa-2x  p-4"></i></a>

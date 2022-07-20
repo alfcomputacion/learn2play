@@ -17,9 +17,7 @@
           
         </div>
       <div v-if="page === 'contactus'" class="contactus">
-        <form action="">
           <ContacUs />
-        </form>
       </div>
  
     <TheFooter @goto-page="changePage" />

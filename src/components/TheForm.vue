@@ -1,37 +1,54 @@
 <template>
-    <form class="x" action="#">
-        <h1  class="text-left">{{frmName}}</h1>
-        <InputBox placeholder="Email" label="Email:" />
-        <InputBox placeholder="Subject" label="Subject:" />
-        <InputBox placeholder="Message" label="Message:" id="mess" />
-        <PlayButton 
-        :btnclass="btnClass"
-        :label="btnLabel"
-        @le-button-click="play"
-         />
+    <form :class="frmClass" action="#" :id="frmId">
+    <InputBox 
+            v-for="input in inputs" 
+            :key="input[0].input"
+            :placeholder="input[0].input" 
+            :label="input[0].input"
+            v-model="input[0].val"
+            :id="input[0].input.toLowerCase()"
+            :theValue="input[0].val"
+            @key-is-up="theMessage"/> 
+            {{val}}
+    <PlayButton 
+           v-for="btn in btns" 
+           :key="btn"
+           :label="btn[0].btnLabel"
+           :btnclass="btn[0].btnClass"
+            @le-button-click="play(btn[0].btnLabel)"/>
     </form>
 </template>
 
 <script>
+
 import InputBox from './InputBox.vue'
 import PlayButton from './PlayButton.vue'
 
+
     export default{
+      
+        name: 'TheForm',
         data: function(){
             return{
-                 btnClass: 'form-control btn btn-primary',
-                 btnLabel: 'Submit'
+                val: 'x'
             }
         },
-        name: 'TheForm',
         components: { InputBox, PlayButton },
         props:{
-            frmName: String
+            frmName: String,
+            frmId: String,
+            frmClass: String,
+            inputs: Array,
+            btns: Array,
         },
         methods:{
-            play(){
-                console.table(this.frmName)
+            play(value){
+                console.table(value)
+            },
+            theMessage(e){
+                console.table(e)
             }
+            
         }
     }
 </script>
