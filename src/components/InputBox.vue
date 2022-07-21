@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-    <div class="form-group col-md-6 mx-auto">
+    <div class="form-group col-md-8 mx-auto">
         <label :for="label">{{label}} {{theId}}</label>
         <input class="form-control" 
         type="text" name="label" 
@@ -18,7 +18,7 @@
         name: 'InputBox',
         data: function(){
             return{
-                theValue: null
+                theVal: 'x'
             }
         },
         props: {
@@ -26,6 +26,10 @@
             txtClass: String,
             theId: String,
             theValue: String
+        },
+        modelValue: {
+            type: [String, Number],
+            default: ''
         }
     }
 </script>

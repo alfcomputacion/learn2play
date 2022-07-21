@@ -6,7 +6,7 @@
          :frmId="frmId" 
          :inputs="inputs" 
          frmName="Contact us"
-       
+        @key-is-up="inputs[0].value"
          :btns="btns"
          />
     </div> 

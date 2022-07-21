@@ -13,7 +13,8 @@
     <select-input 
         :currentValue="maxNumber"
         v-model="maxNumber"
-        label="Max Number" id="maxNumber" :options="numbers" />
+        label="Max Number" id="maxNumber" 
+        :options="numbers" />
     <PlayButton 
     :btnclass="btnClass" 
     :label="btnLabel" 

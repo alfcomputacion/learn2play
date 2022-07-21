@@ -5,11 +5,11 @@
             :key="input[0].input"
             :placeholder="input[0].input" 
             :label="input[0].input"
-            v-model="input[0].val"
+            v-model="val[0]"
             :id="input[0].input.toLowerCase()"
             :theValue="input[0].val"
-            @key-is-up="theMessage"/> 
-            {{val}}
+            @key-is-up="$emit('key-is-up', val[0].value)"/> 
+       {{val[0]}}
     <PlayButton 
            v-for="btn in btns" 
            :key="btn"
@@ -30,7 +30,7 @@ import PlayButton from './PlayButton.vue'
         name: 'TheForm',
         data: function(){
             return{
-                val: 'x'
+                val: ['']
             }
         },
         components: { InputBox, PlayButton },
@@ -44,9 +44,10 @@ import PlayButton from './PlayButton.vue'
         methods:{
             play(value){
                 console.table(value)
+            
             },
             theMessage(e){
-                console.table(e)
+                this.val = this.val + inputs[0].value
             }
             
         }
