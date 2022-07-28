@@ -32,6 +32,18 @@
                        class="dropdown-item">Anagram</a>
                 </div>
         </li>
+        <li class="navbar-item">
+          <a 
+          data-toggle="collapse"
+          data-target="#navbar-content" 
+      @click="$emit('goto-page','login')" href="#login" class="nav-link">Log in</a>
+        </li>
+         <li class="navbar-item">
+          <a 
+          data-toggle="collapse"
+          data-target="#navbar-content" 
+      @click="$emit('goto-page','aboutus')" href="#aboutus" class="nav-link">About Us</a>
+        </li>
       </ul>
     </div>
 </nav>  

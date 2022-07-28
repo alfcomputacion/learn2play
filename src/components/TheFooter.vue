@@ -1,6 +1,6 @@
 <template>
     <footer>
-<nav class="bottom-nav fixed-bottom text-center">
+<nav class="bottom-nav fixed-bottom text-center text-white">
         <div class="social">
             <a @click="$emit('goto-page', 'contactus')" href="#"><i class="fa fa-envelope fa-2x  p-4" aria-hidden="true"></i></a>
             <a href="https://twitter.com/alfcomputacion"><i class="fab fa-twitter fa-2x  p-4"></i></a>
@@ -25,7 +25,15 @@
 <style scoped>
     .bottom-nav{
         margin-bottom: 0;
-        background: navy;
+        background: darkblue;
         width: 100vw;
     }
+    .social a,.logo a{
+        color: white;
+    }
+    .social a:active,.logo a:active {
+        color: rgb(138, 131, 131);
+    }
+    
+
 </style>

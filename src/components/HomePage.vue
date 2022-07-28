@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <TheHeader @goto-page="changePage" />
        <!-- We condition the page 
           any time page changes it goes 
@@ -19,8 +20,14 @@
       <div v-if="page === 'contactus'" class="contactus">
           <ContacUs />
       </div>
- 
-    <TheFooter @goto-page="changePage" />
+      <div v-if="page === 'login'" class="login">
+        <LogSignIn />
+      </div>
+      <div v-if="page === 'aboutus'">
+        <AboutUs />
+      </div>
+ <div class="bottom-space"></div>
+    <TheFooter @goto-page="changePage"/>
   </div>
 </template>
 
@@ -31,13 +38,15 @@ import TheHeader from './TheHeader.vue';
 import AnagramHunt from './AnagramHunt.vue';
 import TheQuotes from './TheQuotes.vue';
 import TheFooter from './TheFooter.vue';
-import ContacUs from './ContacUs.vue';
+import ContacUs from '@/views/ContacUs.vue';
+import LogSignIn from './LogSignIn.vue'
+import AboutUs from '@/views/AboutUs.vue';
 
 export default {
   name: 'App',
   data: function(){
     return{
-      page: 'home'
+      page: 'anagram'
     }
   },
   methods:{
@@ -52,14 +61,19 @@ export default {
     AnagramHunt,
     TheQuotes,
     TheFooter,
-    ContacUs
+    ContacUs,
+    LogSignIn,
+    AboutUs
 }
 }
 </script>
 
-<style scoped>
+<style>
 .header-space{
   margin-top: 4rem;
+}
+.bottom-space{
+margin-bottom: 5rem;
 }
 
 </style>>

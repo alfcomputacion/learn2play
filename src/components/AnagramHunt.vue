@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <div v-for="anagram in anagrams" :key="anagram" class="header-space">
-            <p>{{anagram[0] }}</p>
+            <p>{{anagram[7] }}</p>
         </div>
         <div v-if="screen === 'config'" id="config-container">
         <h1>Anagram Hunt</h1>
@@ -51,8 +51,8 @@ import PlayButton from './PlayButton.vue';
 import Score from './Score.vue';
 import Timer from './Timer.vue';
 import Equation from './Equation.vue';
-import {randInt} from '../helpers/helpers'
-import anagrams from '../../public/anagrams.json'
+import {randInt, anagrams} from '../helpers/helpers'
+// import anagrams from '../../public/anagrams.json'
 
 export default {
   name: 'AnagramHunt',
@@ -65,7 +65,7 @@ export default {
         ['Division', '/'],
       ],
       operation: 'x',
-      maxNumber: '10',
+      maxNumber: '5',
       wordLength: [5,6,7,8],
       screen: 'config',
       input: '',
@@ -76,7 +76,7 @@ export default {
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
-        anagrams 
+        anagrams
 
     }
 
@@ -169,7 +169,13 @@ export default {
         return (parseInt(userAnswer) === correctAnswer);
     }
   },
-
+created(){
+    const five = this.anagrams[7][0][0]
+    const six = this.anagrams[7][0][2]
+    console.table(this.anagrams)
+    console.log(five)
+    console.log(six)
+},  
   components: {
     SelectInput,
     PlayButton,
