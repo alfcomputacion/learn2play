@@ -1,13 +1,13 @@
 <template>
     <div class="main-container">
-        <div v-for="anagram in anagrams" :key="anagram" class="header-space">
-            <p>{{anagram[7] }}</p>
+        <div v-for="anagram in anagrams" :key="anagram"  class="header-space">
+            <p>{{anagram[maxNumber] }}</p>
         </div>
         <div v-if="screen === 'config'" id="config-container">
         <h1>Anagram Hunt</h1>
         <SelectInput 
             :currentValue="maxNumber"
-            v-model="wordLength"
+            v-model="maxNumber"
             label="Word length"
             id="wordLength"
             :options="numbers"/>
@@ -31,13 +31,13 @@
                 <Timer />
             </div>
         </div>
-        <div  class="row text-secondary my-2" id="equation">
+        <!-- <div  class="row text-secondary my-2" id="equation">
               <p><strong>Word goes here and also (word qty)</strong></p>
               <Equation :question="question"
                 :answer="input"
                 :answered="answered" />
 
-        </div>  
+        </div>   -->
         <input type="text" placeholder="Type here">
 
         </div>
@@ -58,15 +58,8 @@ export default {
   name: 'AnagramHunt',
   data: function(){
     return{
-      operations: [
-        ['Addition', '+'],
-        ['Subtraction', '-'],
-        ['Multiplication', 'x'],
-        ['Division', '/'],
-      ],
-      operation: 'x',
       maxNumber: '5',
-      wordLength: [5,6,7,8],
+    //   wordLength: [5,6,7,8],
       screen: 'config',
       input: '',
       operands: {num1: '1', num2: '1'},
@@ -90,13 +83,13 @@ export default {
          return numbers;
     },
     
-    question: function(){
-        const num1 = this.operands.num1;
-        console.log(this.operands.num1);
-        const num2 = this.operands.num2;
-        const equation = `${num1} ${this.operation} ${num2}`;
-        return equation;
-    }
+    // question: function(){
+    //     const num1 = this.operands.num1;
+    //     console.log(this.operands.num1);
+    //     const num2 = this.operands.num2;
+    //     const equation = `${num1} ${this.operation} ${num2}`;
+    //     return equation;
+    // }
  
   },
   methods:{
@@ -143,10 +136,28 @@ export default {
     },
 
     newQuestion(){
-        this.input = '';
-        this.answered = false;
-        this.operands = this.getRandomNumbers(
-            this.operation, 0 , this.maxNumber);
+        const arraySize = this.anagrams[this.maxNumber]//arrays in the array
+        const firstInside = this.anagrams[this.maxNumber][0] 
+        const wordLength = this.anagrams[this.maxNumber][0][0] //SIZE OF THE word
+
+    const five = this.anagrams[this.maxNumber][randInt(0, 2)][randInt(0, 3)]
+    const six = this.anagrams[this.maxNumber][2][randInt(0, firstInside-1)]
+
+    console.log('Arrays qty: ' + this.anagrams[this.maxNumber])
+    console.log('Arrays qty: ' + arraySize)
+    console.log('Anagrams in array: ' +this.anagrams[this.maxNumber][0])
+    console.log('Anagrams in array: ' + firstInside)
+    console.log('word Length: ' +this.anagrams[this.maxNumber][0][0])
+    console.log('Word Length: ' + wordLength)
+    
+    
+    console.log(six)
+
+
+        // this.input = '';
+        // this.answered = false;
+        // this.operands = this.getRandomNumbers(
+        //     this.operation, 0 , this.maxNumber);
     },
     checkAnswer(userAnswer, operation, operands){
         if(isNaN(userAnswer)) return false;
@@ -169,13 +180,14 @@ export default {
         return (parseInt(userAnswer) === correctAnswer);
     }
   },
-created(){
-    const five = this.anagrams[7][0][0]
-    const six = this.anagrams[7][0][2]
-    console.table(this.anagrams)
-    console.log(five)
-    console.log(six)
-},  
+// created(){
+//     const five = this.anagrams[this.maxNumber][this.maxNumber.length][0]
+//     const six = this.anagrams[7][0][2]
+//     console.log(five)
+//     console.log(six)
+
+    
+// },  
   components: {
     SelectInput,
     PlayButton,
