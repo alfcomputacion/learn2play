@@ -36,7 +36,7 @@
 
         </div>
             <div class="text-center" v-if="currentAnagram.length > 0">
-            <h3>{{currentArray}}</h3>
+            <h3>{{currentArray}} {{ currentArray.length}}</h3>
                 <h2><strong>{{currentAnagram}} </strong> ({{anagramsLeft}} left)</h2>
             </div>
         <!-- <div  class="row text-secondary my-2" id="equation">
@@ -134,23 +134,16 @@ export default {
             this.currentArray = this.currentArray.filter(item => item !== this.input)
             this.input = ''
             this.score++
+             if(this.currentArray.length === 0){
+                     setTimeout(this.newAnagram, 300);
+                }
             return
          }
 
-        //  if(this.input === this.currentAnagram){
-           
-        //  }
-        //  this.checkAnswer(this.input)
-        // if (this.answered) {
-        //     this.score++    
-        // }
       },
       // todo it needs fix
         checkAnswer(value){
             if(this.input === value){
-                setTimeout(this.newAnagram, 300);
-                this.score++;
-                this.input = ''
                 return true
             }else{
                 return false
