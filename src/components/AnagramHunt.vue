@@ -1,8 +1,6 @@
 <template>
     <div class="main-container">
-        <div class="header-space"></div>
-          
-            
+        <div class="header-space"></div>            
         <div v-if="screen === 'config'" id="config-container">
         <h1>Anagram Hunt</h1>
         <SelectInput 
@@ -39,14 +37,7 @@
             <h3>{{currentArray}} {{ currentArray.length}}</h3>
                 <h2><strong>{{currentAnagram}} </strong> ({{anagramsLeft}} left)</h2>
             </div>
-        <!-- <div  class="row text-secondary my-2" id="equation">
-              <p><strong>Word goes here and also (word qty)</strong></p>
-              <Equation :question="currentAnagram"
-                :answer="input"
-                :answered="answered"
-                :anagram="true" />
-
-        </div>   -->
+       
         <div class="text-center">
         <input disabled v-model="input" type="text" placeholder="Type here">
         </div>  
@@ -78,7 +69,6 @@ export default {
     //   theWord: [5,6,7,8],
       screen: 'config',
       input: '',
-      operands: {num1: '1', num2: '1'},
         answered: false,
         score: 0,
         gameLength: 60,
@@ -102,15 +92,7 @@ export default {
          }
          return numbers;
     },
-    
-    // question: function(){
-    //     const num1 = this.operands.num1;
-    //     console.log(this.operands.num1);
-    //     const num2 = this.operands.num2;
-    //     const equation = `${num1} ${this.operation} ${num2}`;
-    //     return equation;
-    // }
- 
+
   },
   methods:{
     config(){
@@ -135,6 +117,7 @@ export default {
             this.input = ''
             this.score++
              if(this.currentArray.length === 0){
+                     this.guessedArray = []
                      setTimeout(this.newAnagram, 300);
                 }
             return
