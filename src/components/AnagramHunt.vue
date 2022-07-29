@@ -1,15 +1,15 @@
 <template>
     <div class="main-container">
-        <div v-for="anagram in anagrams" :key="anagram"  class="header-space">
-            <p>{{anagram[maxNumber] }}</p>
-        </div>
+        <div class="header-space"></div>
+          
+            
         <div v-if="screen === 'config'" id="config-container">
         <h1>Anagram Hunt</h1>
         <SelectInput 
             :currentValue="maxNumber"
             v-model="maxNumber"
             label="Word length"
-            id="wordLength"
+            id="theWord"
             :options="numbers"/>
         <ol>
             <li>Chose Word Length</li>
@@ -25,22 +25,38 @@
         <div v-else-if="screen === 'play'" id="game-container">
              <div class="row border-bottom" id="scoreboard">
             <div class="col px-3 text-left">
-                <Score />
+                <Score :score="score" />
             </div>
             <div class="col px-3 text-right">
-                <Timer />
+                <Timer :timeLeft="timeLeft"/>
             </div>
         </div>
-        <!-- <div  class="row text-secondary my-2" id="equation">
-              <p><strong>Word goes here and also (word qty)</strong></p>
-              <Equation :question="question"
-                :answer="input"
-                :answered="answered" />
-
-        </div>   -->
-        <input type="text" placeholder="Type here">
+        <div v-for="anagram in anagrams" :key="anagram"  >
+            <p>{{anagram[maxNumber] }}</p>
 
         </div>
+            <div class="text-center" v-if="currentAnagram.length > 0">
+            <h3>{{currentArray}}</h3>
+                <h2><strong>{{currentAnagram}} </strong> ({{anagramsLeft}} left)</h2>
+            </div>
+        <!-- <div  class="row text-secondary my-2" id="equation">
+              <p><strong>Word goes here and also (word qty)</strong></p>
+              <Equation :question="currentAnagram"
+                :answer="input"
+                :answered="answered"
+                :anagram="true" />
+
+        </div>   -->
+        <div class="text-center">
+        <input disabled v-model="input" type="text" placeholder="Type here">
+        </div>  
+{{input}}
+        </div>
+          <div v-if="guessedArray.length > 0">
+                <ol>
+                    <li class="text-center" v-for="item in guessedArray" :key="item">{{item}}</li>
+                </ol>
+            </div>
 
     </div>
 </template>
@@ -59,7 +75,7 @@ export default {
   data: function(){
     return{
       maxNumber: '5',
-    //   wordLength: [5,6,7,8],
+    //   theWord: [5,6,7,8],
       screen: 'config',
       input: '',
       operands: {num1: '1', num2: '1'},
@@ -69,7 +85,11 @@ export default {
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
-        anagrams
+        anagrams,
+        currentArray: '',
+        currentAnagram: [],
+        guessedArray: [],
+        anagramsLeft: 0
 
     }
 
@@ -99,22 +119,44 @@ export default {
 
     play(){
           this.screen = 'play';
-          this.newQuestion();
+          this.startTimer();
+          this.newAnagram();
     },
     clearAnswer(){
         this.input = ''
     },
+
+    // todo it needs fix
     setInput(value) {
-        this.input += String(value);
-        this.input = String(Number(this.input));
-        this.answered = this.checkAnswer(this.input, 
-                                        this.operation,
-                                        this.operands);
-        if (this.answered) {
-          setTimeout(this.newQuestion, 300);
-          this.score++;
-        }
+         this.input += String(value);
+         if(this.currentArray.find(this.checkAnswer)){
+            this.guessedArray.push(this.input)
+            this.currentArray = this.currentArray.filter(item => item !== this.input)
+            this.input = ''
+            this.score++
+            return
+         }
+
+        //  if(this.input === this.currentAnagram){
+           
+        //  }
+        //  this.checkAnswer(this.input)
+        // if (this.answered) {
+        //     this.score++    
+        // }
       },
+      // todo it needs fix
+        checkAnswer(value){
+            if(this.input === value){
+                setTimeout(this.newAnagram, 300);
+                this.score++;
+                this.input = ''
+                return true
+            }else{
+                return false
+            }
+    
+        },
     getRandomNumbers(operator, low, high){
         let num1 = randInt(low, high);
         let num2 = randInt(low, high);
@@ -135,59 +177,60 @@ export default {
         return {num1, num2};
     },
 
-    newQuestion(){
+    newAnagram(){
+        
         const arraySize = this.anagrams[this.maxNumber]//arrays in the array
-        const firstInside = this.anagrams[this.maxNumber][0] 
-        const wordLength = this.anagrams[this.maxNumber][0][0] //SIZE OF THE word
-
-    const five = this.anagrams[this.maxNumber][randInt(0, 2)][randInt(0, 3)]
-    const six = this.anagrams[this.maxNumber][2][randInt(0, firstInside-1)]
-
-    console.log('Arrays qty: ' + this.anagrams[this.maxNumber])
-    console.log('Arrays qty: ' + arraySize)
-    console.log('Anagrams in array: ' +this.anagrams[this.maxNumber][0])
-    console.log('Anagrams in array: ' + firstInside)
-    console.log('word Length: ' +this.anagrams[this.maxNumber][0][0])
-    console.log('Word Length: ' + wordLength)
+        let index = randInt(0, arraySize.length-1)
+        const firstInside = this.anagrams[this.maxNumber][index]  //Current array with selected size (5,6,7 or 8)
+        let index2 = randInt(0, firstInside.length-1)
+        const theWord = this.anagrams[this.maxNumber][index][index2] //THE word to play anagram from
+   
+   this.currentArray = firstInside
+  
+    // this.guessedArray = firstInside.filter(item => item !== theWord)
+    this.currentArray = firstInside.filter(item => item !== theWord)
+    this.anagramsLeft = this.currentArray.length
     
-    
-    console.log(six)
+    console.log(this.currentAnagram)
+    console.log('this is the current array-* ' +  this.guessedArray)
 
+  
+    this.currentAnagram = theWord
+   console.log(theWord)
 
-        // this.input = '';
-        // this.answered = false;
-        // this.operands = this.getRandomNumbers(
-        //     this.operation, 0 , this.maxNumber);
+ 
     },
-    checkAnswer(userAnswer, operation, operands){
-        if(isNaN(userAnswer)) return false;
+      startTimer(){
+      window.addEventListener('keyup', this.handleKeyUP);
+      console.log(this.timeLeft);
+      this.timeLeft = this.gameLength;
+      console.log(this.timeLeft);
+      if(this.timeLeft > 0){
+        this.timer = setInterval(() =>{
+          this.timeLeft--;
+          console.log(this.timeLeft);
+          if(this.timeLeft === 0){
+            clearInterval(this.timer);
+             window.removeEventListener('keyup', this.handleKeyUP)
+          }
+        }, 1000)
+      }
 
-        let correctAnswer;
-        switch(operation){
-            case '+':
-            correctAnswer = operands.num1 + operands.num2;
-            break
-            case '-':
-            correctAnswer = operands.num1 - operands.num2;
-            break
-            case 'x':
-            correctAnswer = operands.num1 * operands.num2;
-            break
-            default : //division
-            correctAnswer = operands.num1 / operands.num2;
-            break
-        }
-        return (parseInt(userAnswer) === correctAnswer);
+    },
+    // todo it needs fix
+       handleKeyUP(e){
+      e.preventDefault();
+    
+      if(e.keyCode === 32 || e.keyCode === 13 ){
+        this.clearAnswer();
+      }else if (e.keyCode === 8){
+        this.input = this.input.substring(0, this.input.length-1);
+      }else{
+        this.setInput(e.key);
+      }
     }
   },
-// created(){
-//     const five = this.anagrams[this.maxNumber][this.maxNumber.length][0]
-//     const six = this.anagrams[7][0][2]
-//     console.log(five)
-//     console.log(six)
 
-    
-// },  
   components: {
     SelectInput,
     PlayButton,
