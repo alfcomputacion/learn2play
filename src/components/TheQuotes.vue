@@ -1,9 +1,12 @@
 <template>
     <div class="container">
-    <div class="header-space"></div>    
-            <h2 class="text-center">{{searchQuote.title}}</h2>
+    <div class="header-space"></div>   
+    <div class="quotes">
+         <h2 class="text-center">{{searchQuote.title}}</h2>
             <p>{{searchQuote.quote}}</p>
             <p class="text-right"><em>{{searchQuote.author}}</em></p>
+        </div> 
+           
         <div class="games row">
             <div class="mathificent col-lg-6">
                  <h4>       
@@ -100,7 +103,9 @@ import PlayButton from './PlayButton.vue';
 .header-space{
   margin-top: 4rem;
 }
-
+.quotes{
+    height: 160px;
+}
 /*#region ANIMATION */
 .slide-leave-active,
   .slide-enter-active {

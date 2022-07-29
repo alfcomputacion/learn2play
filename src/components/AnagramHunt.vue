@@ -30,16 +30,16 @@
             </div>
         </div>
         <div v-for="anagram in anagrams" :key="anagram"  >
-            <p>{{anagram[maxNumber] }}</p>
+            <!-- <p>{{anagram[maxNumber] }}</p> -->
 
         </div>
             <div class="text-center" v-if="currentAnagram.length > 0">
-            <h3>{{currentArray}} {{ currentArray.length}}</h3>
-                <h2><strong>{{currentAnagram}} </strong> ({{anagramsLeft}} left)</h2>
+            <!-- <h3>{{currentArray}} {{ currentArray.length}}</h3> -->
+                <h2><strong>{{currentAnagram}} </strong> (<span class="anagrams">{{anagramsLeft}}</span> left)</h2>
             </div>
        
         <div class="text-center">
-        <input disabled v-model="input" type="text" placeholder="Type here">
+        <input autofocus v-model="input" type="text" placeholder="Type here">
         </div>  
 {{input}}
         </div>
@@ -107,13 +107,12 @@ export default {
     clearAnswer(){
         this.input = ''
     },
-
-    // todo it needs fix
     setInput(value) {
-         this.input += String(value);
+         
          if(this.currentArray.find(this.checkAnswer)){
-            this.guessedArray.push(this.input)
-            this.currentArray = this.currentArray.filter(item => item !== this.input)
+            this.guessedArray.push(value)
+            this.currentArray = this.currentArray.filter(item => item !== value)
+            this.anagramsLeft = this.currentArray.length
             this.input = ''
             this.score++
              if(this.currentArray.length === 0){
@@ -124,34 +123,14 @@ export default {
          }
 
       },
-      // todo it needs fix
         checkAnswer(value){
-            if(this.input === value){
+            if(this.input.toLowerCase() === value){
                 return true
             }else{
                 return false
             }
     
         },
-    getRandomNumbers(operator, low, high){
-        let num1 = randInt(low, high);
-        let num2 = randInt(low, high);
-        const numHigh = Math.max(num1, num2);
-        const numLow = Math.min(num1, num2);
-
-        if(operator === '-'){
-            num1 = numHigh;
-            num2 = numLow;
-        }
-
-        if(operator === '/'){
-            if(num2 === 0){
-                num2 = randInt(1, high);
-            }
-            num1 = (num1 * num2);
-        }
-        return {num1, num2};
-    },
 
     newAnagram(){
         
@@ -196,14 +175,13 @@ export default {
     // todo it needs fix
        handleKeyUP(e){
       e.preventDefault();
-    
       if(e.keyCode === 32 || e.keyCode === 13 ){
+        this.setInput(this.input.toLowerCase())
         this.clearAnswer();
       }else if (e.keyCode === 8){
         this.input = this.input.substring(0, this.input.length-1);
-      }else{
-        this.setInput(e.key);
       }
+      
     }
   },
 
@@ -227,6 +205,7 @@ export default {
   margin-top: 0;
 
 } */
+
 .header-space{
   margin-top: 4rem;
 }

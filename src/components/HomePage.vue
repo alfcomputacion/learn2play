@@ -69,11 +69,12 @@ export default {
 </script>
 
 <style>
+
 .header-space{
   margin-top: 4rem;
 }
 .bottom-space{
-margin-bottom: 5rem;
+margin-bottom: 7rem;
 }
 
 </style>>
