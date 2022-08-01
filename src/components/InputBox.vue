@@ -3,6 +3,7 @@
     <div class="form-group col-md-8 mx-auto">
         <label :for="label.toLowerCase()">{{label}} {{theId}}</label>
         <input class="form-control" 
+        ref="miCampo"
          :name="label" 
          :type="type"
          :errorMsg="errorMsg"

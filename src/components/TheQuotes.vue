@@ -4,6 +4,7 @@
     <div class="quotes">
          <h2 class="text-center">{{searchQuote.title}}</h2>
             <p>{{searchQuote.quote}}</p>
+            <div v-if="searchQuote.quote === 'loading...'" class="spinner"></div>
             <p class="text-right"><em>{{searchQuote.author}}</em></p>
         </div> 
            
@@ -48,6 +49,7 @@
 <script>
 
 import quotesData from '../../public/quotes.json'
+import { randInt } from '@/helpers/helpers';
 import PlayButton from './PlayButton.vue';
 
     export default{
@@ -74,21 +76,23 @@ import PlayButton from './PlayButton.vue';
             //todo
             //**** */
             this.quotesInterval = setInterval(() => {
-                if (this.quoteId === 7) {
-                    this.quoteId = 1;
-                }
-                else {
-                    this.quoteId++;
-                }
+            let tmp = this.quoteId
+              this.quoteId =  randInt(1, 7)
+              console.log('disque random# ' + this.quoteId)
+              if(tmp === this.quoteId){
+                this.quoteId =  randInt(1, 5)
+              }
+           
                 this.show = !this.show;
                 console.log(this.searchQuote);
                 this.searchQuote = this.quotes[this.quoteId];
                 console.log("From quotes " + this.quoteId);
                 return this.searchQuote;
-            }, 1000);
+            }, 10000);
         },
     },
     mounted() {
+        this.searchQuote = this.quotes[1];
         this.randomQuote();
         console.log("created...");
     },

@@ -283,39 +283,5 @@ export default {
     font-size: 5em;
   }
 
-  .slide-leave-active,
-  .slide-enter-active {
-    position: absolute;
-    top: 56px;
-    transition: 1s;
-    width: 380px;
-  }
 
-  .slide-enter {
-    transform: translate(-100%, 0);
-    transition: opacity .5s;
-  }
-
-  .slide-leave-to {
-    opacity:0;
-    transform: translate(100%, 0);
-  }
-
-  .slide-right-leave-active,
-  .slide-right-enter-active {
-    position: absolute;
-    top: 56px;
-    transition: 1s;
-    width: 380px;
-  }
-
-  .slide-right-enter {
-    transform: translate(100%, 0);
-    transition: opacity .5s;
-  }
-
-  .slide-right-leave-to {
-    opacity:0;
-    transform: translate(-100%, 0);
-  }
 </style>
