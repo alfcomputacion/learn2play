@@ -59,8 +59,8 @@
 </template>
 
 <script>
-import InputBox from './InputBox.vue'
-import PlayButton from './PlayButton.vue'
+import InputBox from '../components/InputBox'
+import PlayButton from '../components/PlayButton.vue'
 export default {
     name: "LogSignIn",
     data() {
@@ -86,7 +86,7 @@ export default {
                 
         }
     },
-    show: false,
+    // show: false,
     components: { InputBox, PlayButton }
 }
 </script>

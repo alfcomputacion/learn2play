@@ -44,6 +44,13 @@
           data-target="#navbar-content" 
       @click="$emit('goto-page','login')" href="#login" class="nav-link">Log in</a>
         </li>
+          <li class="navbar-item">
+          <a
+          id="contact-us" 
+          data-toggle="collapse"
+          data-target="#navbar-content" 
+      @click="$emit('goto-page','contactus')" href="#contactus" class="nav-link">Contact Us</a>
+        </li>
          <li class="navbar-item">
           <a
           id="about-us" 

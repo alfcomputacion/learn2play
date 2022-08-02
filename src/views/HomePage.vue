@@ -39,7 +39,7 @@ import AnagramHunt from '../components/AnagramHunt.vue';
 import TheQuotes from '../components/TheQuotes.vue';
 import TheFooter from '../components/TheFooter.vue';
 import ContacUs from '@/views/ContacUs.vue';
-import LogSignIn from '../components/LogSignIn.vue'
+import LogSignIn from './LogSignIn.vue'
 import AboutUs from '@/views/AboutUs.vue';
 
 export default {
