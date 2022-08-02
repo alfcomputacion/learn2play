@@ -31,6 +31,7 @@
               <strong class="big">You Answered</strong>
               <div class="huge">{{score}}</div>
               <strong class="big">Anagrams Correctly</strong>
+              <div v-if="wordLenghtArrays === 0">Congratulations you guessed all anagrams</div>
               <button class="btn btn-primary form-control m-1"
               @click="restart()">
               Play Again with Same Settings
@@ -64,7 +65,7 @@
                 </div>
           
             <div class="text-center">
-            <input autofocus ref="inputsx" v-model="input" type="text" placeholder="Type here">
+            <input autofocus v-model="input" type="text" placeholder="Type here">
       
             </div>  
     {{input}}
@@ -109,18 +110,19 @@ export default {
       input: '',
         answered: false,
         score: 0,
-        gameLength: 60,
+        gameLength: 100000,
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
         anagrams,
         currentArray: '',
+        wordLenghtArrays:[],
         currentAnagram: [],
         guessedArray: [],
         anagramsLeft: 0,
         miCampo: null,
-        inputFocus: false
-
+        inputFocus: false,
+        gameOver: false
     }
 
   },
@@ -137,47 +139,27 @@ export default {
     },
 
   },
-  mounted() {
-    
-    console.log(this.inputFocus)
-  },
+  unmounted(){clearInterval(this.timer);},
   methods:{
-    showInput() {
-      this.inputFocus = true
-      setTimeout(() => {
-        let elem = document.getElementById('myInput')
-        let clickEvent = new Event('click')
-        elem.dispatchEvent(clickEvent)
-        elem.focus()
-        console.log('el elemento ' +elem.value)
 
-      }, 2000);
-      
-      // Show the input component
-      // this.inputIsVisible = true;
-
-      // Focus the component, but we have to wait
-      // so that it will be showing first.
-      // this.nextTick(() => {
-      //   this.inputFocus = true
-      //   // this.focusInput();
-      // });
-    },
-    focusInput() {
-      this.$refs.inputsx.focus();
-    },
     config(){
         this.screen= 'config'
 
     },
 
     play(){
+        
+// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+//  alert(navigator.userAgent)
+// }        
+          this.gameOver = false
           this.screen = 'play';
           this.startTimer();
           this.newAnagram();
                   
     },
       restart(){
+      this.gameOver = false
       this.score = 0;
       this.startTimer();
       this.newAnagram();
@@ -196,7 +178,12 @@ export default {
             this.score++
              if(this.currentArray.length === 0){
                      this.guessedArray = []
-                     setTimeout(this.newAnagram, 300);
+                     if(this.wordLenghtArrays.length-1 > 0){
+                        setTimeout(this.newAnagram, 300);
+                     }else{
+                        this.timeLeft = 1
+                     }
+                     
                 }
             return
          }
@@ -206,15 +193,26 @@ export default {
           return this.input.toLowerCase() === value;
 
         },
-
+// ! new anagram***************
+// todo new anagram************
     newAnagram(){
         
+    //     if(this.gameOver === true){
+    //  if(arraySize.length <= 0){
+    //         this.timeLeft =1
+    //     }
+    //     }
         const arraySize = this.anagrams[this.maxNumber]//arrays in the array
+   
+
         let index = randInt(0, arraySize.length-1)
         const firstInside = this.anagrams[this.maxNumber][index]  //Current array with selected size (5,6,7 or 8)
+        console.log('Eliminar este arreglo: ' +arraySize[index]) 
+        console.log('Eliminar este arreglo: ' +arraySize[index])
         let index2 = randInt(0, firstInside.length-1)
         const theWord = this.anagrams[this.maxNumber][index][index2] //THE word to play anagram from
-   
+
+   console.log('this is arraySize ' + arraySize.length)
    this.currentArray = firstInside
   
     // this.guessedArray = firstInside.filter(item => item !== theWord)
@@ -226,9 +224,12 @@ export default {
 
   
     this.currentAnagram = theWord
-   console.log(theWord)
+    console.log(theWord)
 
- 
+        
+        arraySize.splice(index,1) //remove array that is been plyaing
+        alert(arraySize.length)
+        this.wordLenghtArrays = arraySize 
     },
       startTimer(){
       window.addEventListener('keyup', this.handleKeyUP);
@@ -242,6 +243,7 @@ export default {
           if(this.timeLeft === 0){
             clearInterval(this.timer);
             this.guessedArray = []
+            this.wordLenghtArrays = []
              window.removeEventListener('keyup', this.handleKeyUP)
           }
         }, 1000)
@@ -254,8 +256,6 @@ export default {
       if(e.keyCode === 32 || e.keyCode === 13 ){
         this.setInput(this.input.toLowerCase())
         this.clearAnswer();
-      }else if (e.keyCode === 8){
-        this.input = this.input.substring(0, this.input.length-1);
       }
       
     }

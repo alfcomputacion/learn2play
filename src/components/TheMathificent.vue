@@ -104,7 +104,7 @@ export default {
       operands: {num1: '1', num2: '1'},
         answered: false,
         score: 0,
-        gameLength: 5,
+        gameLength: 60,
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'form-control btn btn-primary'
@@ -129,7 +129,7 @@ export default {
         return equation;
     }
  
-  },
+  }, unmounted(){clearInterval(this.timer);},
   methods:{
     config(){
         this.screen= 'config'

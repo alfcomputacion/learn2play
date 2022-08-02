@@ -59,3 +59,83 @@ export default {
 
 }
 </script>
+<style scoped>
+#kjlogo{
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    fill: white;
+    background-color: black;
+    margin-top: 5px;
+    right: 10px;
+    border-radius: 7px;
+    border: 2px solid white;
+    padding: 1px;
+    animation: kmove 1.5s ease-in-out forwards;
+    animation: kmove 2.5s ease-in-out backwards;
+    
+}
+
+#k{
+   animation: kmove 1.5s ease-in-out;
+}
+
+@keyframes kmove{
+    0%{
+        fill: red;
+    }
+    25%{
+        fill:orange;
+        transform: rotate((-55deg));
+        border: 2px dashed greenyellow;
+    }
+    50%{
+        fill: white;
+        transform: rotate(-90deg);
+        border: 1.5px groove white;
+    }
+    75%{
+        fill:orange;
+        transform: rotate((40deg));
+        border: 3px double red;
+    }
+    100%{
+        fill: black;
+        stroke: white;
+        transform: rotate(0);
+        border: 3px dotted blue;
+    }
+}
+#j{
+    animation: jmove 1.5s ease-in-out;
+}
+
+@keyframes jmove{
+    0%{
+        fill: greenyellow;
+    }
+    25%{
+        fill:yellow;
+        transform: rotate((55deg));
+        width: 20px;
+    }
+    50%{
+        fill: white;
+        transform: rotate(90deg);
+        width: 50px;
+     
+    }
+    75%{
+        fill:orange;
+        transform: rotate(-(55deg));
+        width: 60px;
+     
+    }
+    100%{
+        fill: white;
+        transform: rotate(0);
+     
+
+    }
+}
+</style>
