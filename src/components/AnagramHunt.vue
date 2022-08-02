@@ -61,6 +61,7 @@
             </div>
                 <div class="text-center" v-if="currentAnagram.length > 0">
                 <!-- <h3>{{currentArray}} {{ currentArray.length}}</h3> -->
+           
                     <h2><strong>{{currentAnagram}} </strong> (<span class="anagrams">{{anagramsLeft}}</span> left)</h2>
                 </div>
           
@@ -104,7 +105,7 @@ export default {
   name: 'AnagramHunt',
   data: function(){
     return{
-      maxNumber: '5',
+      maxNumber: '8',
     //   theWord: [5,6,7,8],
       screen: 'config',
       input: '',
@@ -120,6 +121,7 @@ export default {
         currentAnagram: [],
         guessedArray: [],
         anagramsLeft: 0,
+        arrayFromAnagrams: [],
         miCampo: null,
         inputFocus: false,
         gameOver: false
@@ -148,17 +150,19 @@ export default {
     },
 
     play(){
-        
-// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-//  alert(navigator.userAgent)
-// }        
-          this.gameOver = false
+      this.arrayFromAnagrams = anagrams[this.maxNumber].slice(0)
+
+        this.gameOver = false
           this.screen = 'play';
           this.startTimer();
           this.newAnagram();
+// if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+//  alert(navigator.userAgent)
+// }        
                   
     },
       restart(){
+      this.arrayFromAnagrams = anagrams[this.maxNumber].slice(0)
       this.gameOver = false
       this.score = 0;
       this.startTimer();
@@ -178,7 +182,7 @@ export default {
             this.score++
              if(this.currentArray.length === 0){
                      this.guessedArray = []
-                     if(this.wordLenghtArrays.length-1 > 0){
+                     if(this.wordLenghtArrays.length > 0){
                         setTimeout(this.newAnagram, 300);
                      }else{
                         this.timeLeft = 1
@@ -193,45 +197,36 @@ export default {
           return this.input.toLowerCase() === value;
 
         },
-// ! new anagram***************
-// todo new anagram************
+
     newAnagram(){
+        this.wordLenghtArrays = this.arrayFromAnagrams
+
+        let index = randInt(0, this.wordLenghtArrays.length-1)
+ 
+                const firstInside = this.wordLenghtArrays[index]  //Current array with selected size (5,6,7 or 8)
+              
+                let index2 = randInt(0, firstInside.length-1)
+                const theWord = this.wordLenghtArrays[index][index2] //THE word to play anagram from
+              
+                this.currentArray = firstInside
         
-    //     if(this.gameOver === true){
-    //  if(arraySize.length <= 0){
-    //         this.timeLeft =1
-    //     }
-    //     }
-        const arraySize = this.anagrams[this.maxNumber]//arrays in the array
-   
-
-        let index = randInt(0, arraySize.length-1)
-        const firstInside = this.anagrams[this.maxNumber][index]  //Current array with selected size (5,6,7 or 8)
-        console.log('Eliminar este arreglo: ' +arraySize[index]) 
-        console.log('Eliminar este arreglo: ' +arraySize[index])
-        let index2 = randInt(0, firstInside.length-1)
-        const theWord = this.anagrams[this.maxNumber][index][index2] //THE word to play anagram from
-
-   console.log('this is arraySize ' + arraySize.length)
-   this.currentArray = firstInside
-  
-    // this.guessedArray = firstInside.filter(item => item !== theWord)
-    this.currentArray = firstInside.filter(item => item !== theWord)
-    this.anagramsLeft = this.currentArray.length
-    
-    console.log(this.currentAnagram)
-    console.log('this is the current array-* ' +  this.guessedArray)
-
-  
-    this.currentAnagram = theWord
-    console.log(theWord)
+            this.currentArray = firstInside.filter(item => item !== theWord)
+            this.anagramsLeft = this.currentArray.length
+            
+            console.log(this.currentAnagram)
+            console.log('this is the current array-* ' +  this.guessedArray)
 
         
-        arraySize.splice(index,1) //remove array that is been plyaing
-        alert(arraySize.length)
-        this.wordLenghtArrays = arraySize 
+            this.currentAnagram = theWord
+            console.log(theWord)
+
+                if(this.wordLenghtArrays.length > 0){
+                    this.wordLenghtArrays.splice(index,1) //remove array that is been plyaing
+                }
+
+       
     },
-      startTimer(){
+startTimer(){
       window.addEventListener('keyup', this.handleKeyUP);
       console.log(this.timeLeft);
       this.timeLeft = this.gameLength;
@@ -251,7 +246,7 @@ export default {
 
     },
     // todo it needs fix
-       handleKeyUP(e){
+handleKeyUP(e){
       e.preventDefault();
       if(e.keyCode === 32 || e.keyCode === 13 ){
         this.setInput(this.input.toLowerCase())
