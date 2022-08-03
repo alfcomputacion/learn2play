@@ -1,6 +1,6 @@
 <template>
-<div class="row mx-1 my-3">
-    <div class="form-group col-md-8 mx-auto">
+<div class="row">
+    <div class="form-group col-12 mx-auto">
       <label :for="id">{{label}}</label>
 
         <textarea :id="theId" :name="label" :rows="rows" :cols="cols">
