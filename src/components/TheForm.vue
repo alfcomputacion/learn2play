@@ -101,13 +101,18 @@ bntClicked(value, e){
                    this.submitted = true
                    console.log('este es errorDetected: ' + this.errorDetected)
                 }else{
+                   
             alert(
                 'Email: ' + this.inputsReturn[0][0].val  +
                'Subject: ' + this.inputsReturn[1][0].val  +
                 'Message: ' + this.textAreasReturn[0][0].val + 'Data was sent Thank you...' )
                  this.submitted = false
                  console.log('este es errorDetected: ' + this.errorDetected)
-                }
+                 
+                } 
+                this.inputsReturn[0][0].val  =''
+                this.inputsReturn[1][0].val  =''
+                this.textAreasReturn[0][0].val =''
             },
             noDefault(e){
                 e.preventDefault()
@@ -142,7 +147,7 @@ bntClicked(value, e){
                 case 'Message':
                     
                     if(e.val.length < 5){
-                        console.log('Message length: '  + this.textAreasReturn[0][0].val.length)
+                    console.log('Message length: '  + this.textAreasReturn[0][0].val.length)
                     this.textAreasReturn[0][0].errMsg = 'Message can\'t be empty'
                     console.log('el error de 2,0 ',this.textAreasReturn[0][0].errMsg)
                     this.errorDetected = true
