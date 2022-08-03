@@ -7,7 +7,6 @@
             :frmId="frmId" 
             :inputs="inputs" 
             :textAreas="textAreas"
-
             :btns="btns"
          />
     </div> 
@@ -25,18 +24,19 @@ import TheForm from '@/components/TheForm.vue'
             frmClass: 'frm-contact',
             inputs:[
                 [{input:'Email', val: '', type: 'email', errMsg:''}],
-                [{input: 'Subject', val: '', type: 'text', errMsg:''}], 
-                [{input:'Message', val: '', type:'text', errMsg:''}]],
+                [{input: 'Subject', val: '', type: 'text', errMsg:''}]
+            ],
             
             textAreas:  [
-                { 
+                [{ 
+                    input: "Message",
                     label: "Message",
-                    theId : "w3review", 
-                    name : "w3review", 
+                    theId : "alf-msg", 
+                    name : "alf-msg", 
                     rows : 4, cols : 50, 
-                    theValue: '', 
+                    val: '', 
                 type:'textarea', 
-                errMsg:'message-error'}
+                errMsg:''}]
                 ],
             
             btns: [

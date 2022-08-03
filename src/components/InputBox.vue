@@ -1,7 +1,7 @@
 <template>
 <div class="row">
     <div class="form-group col-12 mx-auto">
-        <label :for="label.toLowerCase()">{{label}} {{theId}}</label>
+        <label :for="label.toLowerCase()">{{label}}</label>
         <input class="form-control" 
         ref="miCampo"
          :name="label" 
@@ -15,9 +15,9 @@
     </div>
     
    <!--  {{theValue}} -->
-    <div  v-if="errorMsg" class="form-group col-12 mx-auto">
+    <template  v-if="errorMsg" class="form-group col-12 mx-auto">
         <p class="text-danger" >{{errorMsg}}</p>
-    </div>
+    </template>
    <!--todo theValue could be conflictin with other component -->
 </div>
 </template>

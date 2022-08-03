@@ -3,12 +3,23 @@
     <div class="form-group col-12 mx-auto">
       <label :for="id">{{label}}</label>
 
-        <textarea :id="theId" :name="label" :rows="rows" :cols="cols">
-        
+        <textarea 
+        :placeholder="label" 
+        :id="theId" 
+        :name="label"
+        :errorMsg="errorMsg" 
+        :rows="rows" 
+        :cols="cols"
+        :value="theValue"
+       @input="$emit('update:modelValue', $event.target.value)"
+       @keyup="$emit('key-is-up', $event.target.value)">
         </textarea>
-
+  
     </div>
- 
+      <template  v-if="errorMsg" class="form-group col-12 mx-auto">
+        <p class="text-danger" >{{errorMsg}}</p>
+    </template>
+
    <!--todo theValue could be conflictin with other component -->
 </div>
 </template>
@@ -19,6 +30,7 @@
         props: {
             theId: String,
             label: String,
+            input: String,
             txtClass: String,
             cols: Number,
             rows: Number,
@@ -31,6 +43,7 @@
 
 <style scoped>
     textarea{
-        padding: 2px;
+        padding-left: .5rem;
+        color: blue;
     }
 </style>

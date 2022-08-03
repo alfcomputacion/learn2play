@@ -1,7 +1,6 @@
 <template>
 <div class="main-container">
-
-    <form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
+<form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
     <InputBox 
             v-for="input in inputs" 
             :key="input[0].input"
@@ -12,18 +11,25 @@
             :theValue="input[0].val"
             :type="input[0].type"
             :errorMsg="input[0].errMsg"
-          @key-is-up="updateErr(input[0])"  
+          @key-is-up="updateErr(input[0])"
 /> 
-        
-    
-    <BaseTextArea 
+       
+    <div class="text-area-boxes">
+         <BaseTextArea 
             v-for="input in textAreas" 
-            :key="input.theId"
-            :name="input.name"
-            :rows="input.rows"
-            :cols="input.cols"
+            :key="input[0].theId"
+            :theValue="input[0].val"
+            v-model="input[0].val"
+            :name="input[0].name"
+            :rows="input[0].rows"
+            :cols="input[0].cols"
+            :label='input[0].label'
+            :errorMsg="input[0].errMsg"
+        @key-is-up="updateErr(input[0])"
 
             /> 
+    </div>
+   
        
     <PlayButton 
            v-for="btn in btns" 
@@ -48,6 +54,7 @@ import BaseTextArea from './BaseTextArea.vue'
         data: function(){
             return{
               inputsReturn: this.inputs,
+              textAreasReturn: this.textAreas,
               errorDetected: false,
               submitted: false  
             }
@@ -61,8 +68,9 @@ import BaseTextArea from './BaseTextArea.vue'
             textAreas: Array,
             btns: Array,
         },
+    
         methods:{
-            bntClicked(value, e){
+bntClicked(value, e){
                 //this gives the value of email subject and message inputs
                 //at submit
                 //todo this.errormsg is not updating or is not reactive???
@@ -80,9 +88,9 @@ import BaseTextArea from './BaseTextArea.vue'
                     this.inputsReturn[1][0].errMsg = 'Subject cant\'t be empty'
                     this.errorDetected = true
                 }
-                if(this.inputsReturn[2][0].val.length < 5 ){
-                    this.inputsReturn[2][0].errMsg = 'Message cant\'t be empty'
-                     console.log('length: '  + this.inputsReturn[2][0].val.length)
+                if(this.textAreasReturn[0][0].val.length < 5 ){
+                    this.textAreasReturn[0][0].errMsg = 'Message cant\'t be empty'
+                     console.log('length: '  + this.textAreasReturn[0][0].val.length)
                  
                    this.errorDetected = true 
                 }
@@ -96,18 +104,16 @@ import BaseTextArea from './BaseTextArea.vue'
             alert(
                 'Email: ' + this.inputsReturn[0][0].val  +
                'Subject: ' + this.inputsReturn[1][0].val  +
-                'Message: ' + this.inputsReturn[2][0].val + 'Data was sent Thank you...' )
+                'Message: ' + this.textAreasReturn[0][0].val + 'Data was sent Thank you...' )
                  this.submitted = false
                  console.log('este es errorDetected: ' + this.errorDetected)
                 }
             },
-          
             noDefault(e){
                 e.preventDefault()
             },
             updateErr(e){
             if(this.submitted){
-
                 let item = e.input
               switch (item) {
                   case 'Email':
@@ -121,7 +127,6 @@ import BaseTextArea from './BaseTextArea.vue'
                 }  else{
                     this.inputsReturn[0][0].errMsg = ''
                     this.errorDetected = false
-                    
                 }                
                     break;
                 case 'Subject':
@@ -135,19 +140,15 @@ import BaseTextArea from './BaseTextArea.vue'
                 }              
                     break;
                 case 'Message':
-                    if(e.val.length < 5){
-                        console.log('length: '  + this.inputsReturn[2][0].val.length)
-                    this.inputsReturn[2][0].errMsg = 'Message can\'t be empty'
-                    console.log('el error de 2,0 ',this.inputsReturn[2][0].errMsg)
-                    this.errorDetected = true
-                    console.log('I found the message: ', this.inputsReturn[2][0].errMsg )    
-                    // if( let temporal = this.errormsg.find(data => data.key === 'Message')){
-                    //     data.error = 'Message cant\'t be empty'
-                    //     // this.errormsg.push([{key: 'Message', error: 'Message cant\'t be empty'}])
-                    // } 
                     
+                    if(e.val.length < 5){
+                        console.log('Message length: '  + this.textAreasReturn[0][0].val.length)
+                    this.textAreasReturn[0][0].errMsg = 'Message can\'t be empty'
+                    console.log('el error de 2,0 ',this.textAreasReturn[0][0].errMsg)
+                    this.errorDetected = true
+                    console.log('I found the message: ', this.textAreasReturn[0][0].errMsg )
                 }else{
-                  this.inputsReturn[2][0].errMsg = ''
+                  this.textAreasReturn[0][0].errMsg = ''
                   this.errorDetected = false
                 }
               
@@ -161,7 +162,7 @@ import BaseTextArea from './BaseTextArea.vue'
             checkErrors(object){
                     let item = object.input
                    
-                       console.log(item)
+                       console.log('checkErrors function: '+item)
                    
 
             }   
