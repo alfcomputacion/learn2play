@@ -1,4 +1,6 @@
 <template>
+<div class="main-container">
+
     <form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
     <InputBox 
             v-for="input in inputs" 
@@ -30,6 +32,7 @@
            :btnclass="btn[0].btnClass"
             @le-button-click="bntClicked(btn[0].btnLabel)"/>
     </form>
+</div>
 </template>
 
 <script>
@@ -169,3 +172,9 @@ import BaseTextArea from './BaseTextArea.vue'
         }
     }
 </script>
+<style scoped>
+.main-container{
+    margin: 0 auto;
+    width: 380px;
+}
+</style>
