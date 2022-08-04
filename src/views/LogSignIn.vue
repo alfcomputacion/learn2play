@@ -26,7 +26,7 @@
 
 <section v-if="show"  id="register-div-form">
             <h1>Register</h1>
-    <form action="#" method="post" id="register-form">
+    <form action="#" method="post" id="register-form"  @submit.stop.prevent="prevent">
             <InputBox 
                     v-for="input in regInputs" 
                     :key="input[0].input"
@@ -70,7 +70,7 @@ export default {
                 [{input: 'Password', val: '', type: 'password', errMsg:''}]
             ] ,
             regInputs: [
-                [{input:'Email', val: 'a', type: 'email', errMsg:'', required: true, 
+                [{input:'Email', val: '', type: 'email', errMsg:'', required: true, 
                 pattern: "\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})",
                 placeholder: "example@company.com"}],
                 [{input: 'Password', val: '', type: 'password', errMsg:''}],

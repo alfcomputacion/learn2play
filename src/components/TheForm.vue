@@ -97,9 +97,9 @@ bntClicked(value, e){
 
                 if(this.errorDetected === true ){
                     
-                    alert("Message was not sent, Please check your information ")
-                   this.submitted = true
-                   console.log('este es errorDetected: ' + this.errorDetected)
+                //     alert("Message was not sent, Please check your information ")
+                //    this.submitted = true
+                //    console.log('este es errorDetected: ' + this.errorDetected)
                 }else{
                    
             alert(
