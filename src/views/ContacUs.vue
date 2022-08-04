@@ -33,7 +33,8 @@ import TheForm from '@/components/TheForm.vue'
                     label: "Message",
                     theId : "alf-msg", 
                     name : "alf-msg", 
-                    rows : 4, cols : 50, 
+                    rows : 4, 
+                    cols : 50, 
                     val: '', 
                 type:'textarea', 
                 errMsg:''}]

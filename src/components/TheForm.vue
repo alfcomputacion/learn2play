@@ -161,7 +161,7 @@ bntClicked(value, e){
                     break;
               }
                 
-                console.log (e.errMsg)
+                console.log ('found me on line 164 ' +e.errMsg)
                     }//if submitted
             } ,
             checkErrors(object){

@@ -4,7 +4,7 @@
       
 <section v-if="!show"  id="login-div-form" >
             <h1>Log in</h1>
-    <form action="#" method="post" id="login-form">
+    <form action="#" method="post" id="login-form"  @submit.stop.prevent="prevent">
         <InputBox 
                     v-for="input in logInputs" 
                     :key="input[0].input"
