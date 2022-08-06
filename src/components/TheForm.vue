@@ -19,6 +19,7 @@
             v-for="input in textAreas" 
             :key="input[0].theId"
             :theValue="input[0].val"
+            :theId="input[0].theId"
             v-model="input[0].val"
             :name="input[0].name"
             :rows="input[0].rows"
@@ -56,7 +57,7 @@ import BaseTextArea from './BaseTextArea.vue'
               inputsReturn: this.inputs,
               textAreasReturn: this.textAreas,
               errorDetected: false,
-              submitted: false  
+              submitted: false 
             }
         },
         components: { InputBox, PlayButton, BaseTextArea },

@@ -15,10 +15,11 @@
                     :theValue="input[0].val"
                     :type="input[0].type"
                     :errorMsg="input[0].errMsg"
-                    @key-is-up="$emit('key-is-up', val[0].value)" 
+                    @key-is-up="updateErr(input[0])" 
            /> 
         <PlayButton :label="logbtn[0].btnLabel" 
-                    :btnclass="logbtn[0].btnClass" />
+                    :btnclass="logbtn[0].btnClass" 
+                    @le-button-click="submitLogIn(logbtn[0].btnLabel)"/>
         <!-- <input id="btn-login" type="button" value="Login"> -->
                 <a @click="show = true" id="register-link" href="#">Need an account? <em class="msg">Register</em> </a>
     </form>
@@ -37,7 +38,7 @@
                     :theValue="input[0].val"
                     :type="input[0].type"
                     :errorMsg="input[0].errMsg"
-                    @key-is-up="$emit('key-is-up', val[0].value)" 
+                   @key-is-up="updateErr(input[0])" 
             /> 
 
              
@@ -45,7 +46,8 @@
                     <input type="checkbox" id="gamerCh" required>   
                     <label class="ml-2" for="gamerCh">I am over 13 and like playing games.</label>
                 </div>
-            <PlayButton :label="regbtn[0].btnLabel" :btnclass="regbtn[0].btnClass" />
+            <PlayButton :label="regbtn[0].btnLabel" :btnclass="regbtn[0].btnClass" 
+                @le-button-click="submitLogIn(regbtn[0].btnLabel)"/>
             <!-- <input id="btn-register" type="button" value="Register"> -->
              <a  @click="show = false" id="login-link" href="#">Have an account? <em class="msg">Login</em></a>
     </form>
@@ -70,7 +72,7 @@ export default {
                 [{input: 'Password', val: '', type: 'password', errMsg:''}]
             ] ,
             regInputs: [
-                [{input:'Email', val: '', type: 'email', errMsg:'', required: true, 
+                [{input:'Email', val: 'a', type: 'email', errMsg:'', required: true, 
                 pattern: "\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})",
                 placeholder: "example@company.com"}],
                 [{input: 'Password', val: '', type: 'password', errMsg:''}],
@@ -79,8 +81,42 @@ export default {
             logbtn: 
                  [{btnClass: 'btn btn-primary form-control col-12 mb-3',btnLabel: 'Log in'}],
             regbtn:  
-              [{btnClass: 'btn btn-danger form-control col-12 mb-3',btnLabel: 'Register'}]
-                
+              [{btnClass: 'btn btn-danger form-control col-12 mb-3',btnLabel: 'Register'}],
+            
+            submitted: false,
+            errorDetected: false
+        }
+    },
+    methods:{
+    submitLogIn(e){
+                alert(e)
+                this.submitted = true
+                this.errorDetected = []
+            },
+    updateErr(e){
+                console.log('eee ' + e.input)
+        switch (e.input) {
+            case 'Email':
+                if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/.test(e.val)){
+                    console.log('x')
+                    this.regInputs[0][0].errMsg = ''
+                }else{
+                    console.log('y')
+                    this.regInputs[0][0].errMsg = 'Email must be a valid email exmaple@mail.com'
+                }
+                break;
+            case 'Password':
+                if(e.val.length > 5){
+                    this.regInputs[0][0].errMsg = ''
+                    console.log('Password is long enogh')
+                    console.log(this.regInputs[0][0].errMsg)
+                } else {
+                    console.log('Password is to short needs to be 5 char long')
+                }
+            default:
+                break;
+        }
+            
         }
     },
   

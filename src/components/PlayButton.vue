@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-12 text-center p-2">
      <button 
-        :class="[btnclass]"
+        :class="btnclass"
         @click="$emit('le-button-click')">
         {{label}}
     </button>

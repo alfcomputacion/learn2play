@@ -1,7 +1,7 @@
 <template>
 <div class="row">
     <div class="form-group col-12 mx-auto">
-      <label :for="id">{{label}}</label>
+      <label :for="theId">{{label}}</label>
 
         <textarea 
         :placeholder="label" 
