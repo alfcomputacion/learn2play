@@ -46,7 +46,7 @@ export default {
   name: 'App',
   data: function(){
     return{
-      page: 'contactus'
+      page: 'login'
     }
   },
   methods:{

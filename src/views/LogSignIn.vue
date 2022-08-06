@@ -72,7 +72,7 @@ export default {
                 [{input: 'Password', val: '', type: 'password', errMsg:''}]
             ] ,
             regInputs: [
-                [{input:'Email', val: 'a', type: 'email', errMsg:'', required: true, 
+                [{input:'Email', val: '', type: 'email', errMsg:'', required: true, 
                 pattern: "\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})",
                 placeholder: "example@company.com"}],
                 [{input: 'Password', val: '', type: 'password', errMsg:''}],
@@ -84,40 +84,77 @@ export default {
               [{btnClass: 'btn btn-danger form-control col-12 mb-3',btnLabel: 'Register'}],
             
             submitted: false,
-            errorDetected: false
+            logErrorDetected: false,
+            regErrorDetected: false
         }
     },
     methods:{
     submitLogIn(e){
-                alert(e)
+                // alert('Submitted by: '+e)
+                console.log(this.passordMatch('a','a'))
                 this.submitted = true
-                this.errorDetected = []
+                this.logErrorDetected = []
+                this.regErrorDetected = []
+                
+                switch (e) {
+                    case 'Log in':
+                        //  this.logInputs[0][0].errMsg = 'Email must be a valid email exmaple@mail.com'
+                        this.validateEmail(this.logInputs[0][0])
+                        alert('submitted by Login' + this.logInputs[0][0].val)
+                        break;
+                    case 'Register':
+                        this.validateEmail(this.regInputs[0][0])
+                        alert('submitted by Register')
+                        
+                        break;
+                
+                    default:
+                        break;
+                }
+
             },
     updateErr(e){
-                console.log('eee ' + e.input)
+                console.log('update error from: ' + e.input)
+    if( this.submitted){ 
         switch (e.input) {
             case 'Email':
-                if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/.test(e.val)){
-                    console.log('x')
-                    this.regInputs[0][0].errMsg = ''
-                }else{
-                    console.log('y')
-                    this.regInputs[0][0].errMsg = 'Email must be a valid email exmaple@mail.com'
-                }
+                this.validateEmail(e)
                 break;
             case 'Password':
                 if(e.val.length > 5){
-                    this.regInputs[0][0].errMsg = ''
-                    console.log('Password is long enogh')
-                    console.log(this.regInputs[0][0].errMsg)
+                    e.errMsg = ''
                 } else {
-                    console.log('Password is to short needs to be 5 char long')
+                    e.errMsg = 'Password needs to be 5 char long'
                 }
             default:
                 break;
         }
-            
-        }
+    }
+        },
+        validateEmail(email){
+            console.log('este es email from: ' +email.input)
+                if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/.test(email.val)){
+                    console.log('x')
+                    if(!this.show){
+                          this.logInputs[0][0].errMsg = ''
+                    }else{
+                          this.regInputs[0][0].errMsg = ''
+                    }
+                  
+                    // e.errMsg = ''
+                }else{
+                    console.log('y')
+                    if(!this.show){
+                         this.logInputs[0][0].errMsg = 'Validate email exmaple@mail.com'
+                    }else{
+
+                        this.regInputs[0][0].errMsg = 'Validate email exmaple@mail.com'
+                    }
+                    // e.errMsg = 'Email must be valid email exmaple@mail.com'
+                }
+        },
+        passordMatch(pass, passTwo){return pass === passTwo }
+
     },
   
     components: { InputBox, PlayButton }
