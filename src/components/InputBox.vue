@@ -18,6 +18,7 @@
     <template  v-if="errorMsg" class="form-group col-12 mx-auto">
         <p class="text-danger" >{{errorMsg}}</p>
     </template>
+    
    <!--todo theValue could be conflictin with other component -->
 </div>
 </template>

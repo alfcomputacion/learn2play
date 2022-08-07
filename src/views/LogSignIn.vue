@@ -40,12 +40,19 @@
                     :errorMsg="input[0].errMsg"
                    @key-is-up="updateErr(input[0])" 
             /> 
-
+  <template  v-if="!isPassMatch" class="form-group col-12 mx-auto">
+        <p class="text-danger" >Passwords do not match</p>
+    </template>
              
                 <div id="gamer">
-                    <input type="checkbox" id="gamerCh" required>   
+                    <input type="checkbox" id="gamerCh"
+                    @change="isChecked = !isChecked">   
                     <label class="ml-2" for="gamerCh">I am over 13 and like playing games.</label>
                 </div>
+                <!-- !todo NEED FIX IS CHECKED  -->
+                 <template  v-if="!isChecked" class="form-group col-12 mx-auto">
+                     <p class="text-danger" >You need to confirm you are at least 13 years old</p>
+                </template>
             <PlayButton :label="regbtn[0].btnLabel" :btnclass="regbtn[0].btnClass" 
                 @le-button-click="submitLogIn(regbtn[0].btnLabel)"/>
             <!-- <input id="btn-register" type="button" value="Register"> -->
@@ -78,6 +85,8 @@ export default {
                 [{input: 'Password', val: '', type: 'password', errMsg:''}],
                 [{input: 'RepPassword', val: '', type: 'password', errMsg:''}]
             ],
+            isPassMatch: false,
+            isChecked: true,
             logbtn: 
                  [{btnClass: 'btn btn-primary form-control col-12 mb-3',btnLabel: 'Log in'}],
             regbtn:  
@@ -91,7 +100,7 @@ export default {
     methods:{
     submitLogIn(e){
                 // alert('Submitted by: '+e)
-                console.log(this.passordMatch('a','a'))
+              
                 this.submitted = true
                 this.logErrorDetected = []
                 this.regErrorDetected = []
@@ -99,12 +108,32 @@ export default {
                 switch (e) {
                     case 'Log in':
                         //  this.logInputs[0][0].errMsg = 'Email must be a valid email exmaple@mail.com'
-                        this.validateEmail(this.logInputs[0][0])
-                        alert('submitted by Login' + this.logInputs[0][0].val)
+                        let verifiedEmail = this.validateEmail(this.logInputs[0][0])
+                        let verifiedPass = this.validatePassword(this.logInputs[1][0]) 
+                       if( verifiedPass && verifiedEmail)
+                        {
+                        alert('You are now Logged in as:  ' + this.logInputs[0][0].val)
+                            this.logInputs[0][0].val = ''
+                            this.logInputs[1][0].val = ''
+                        }
                         break;
                     case 'Register':
-                        this.validateEmail(this.regInputs[0][0])
-                        alert('submitted by Register')
+                      let verRegEmail =  this.validateEmail(this.regInputs[0][0])
+                      let verRegPass =  this.validatePassword(this.regInputs[1][0])
+                      let verRegPass2 = this.validatePassword(this.regInputs[2][0])
+                      let checked13 = document.getElementById('gamerCh')
+                      
+                    //   let passMatch = this.passordMatch(this.regInputs[1][0].val, this.regInputs[2][0].val)
+                      this.isPassMatch = this.regInputs[1][0].val === this.regInputs[2][0].val 
+                      
+                        if(verRegEmail && verRegPass && verRegPass2 && this.isPassMatch && checked13){
+                            alert('You have been registered as ' + this.regInputs[0][0].val)
+                            this.regInputs[0][0].val = ''
+                            this.regInputs[1][0].val = ''
+                            this.regInputs[2][0].val = ''
+                            checked13.checked = false
+                        }
+                        
                         
                         break;
                 
@@ -121,12 +150,12 @@ export default {
                 this.validateEmail(e)
                 break;
             case 'Password':
-                if(e.val.length > 5){
-                    e.errMsg = ''
-                } else {
-                    e.errMsg = 'Password needs to be 5 char long'
-                }
-            default:
+               this.validatePassword(e)
+               break;
+            case 'RepPassword':
+               this.validatePassword(e)
+                break;
+                default:
                 break;
         }
     }
@@ -137,10 +166,11 @@ export default {
                     console.log('x')
                     if(!this.show){
                           this.logInputs[0][0].errMsg = ''
+                        
                     }else{
                           this.regInputs[0][0].errMsg = ''
                     }
-                  
+                  return true
                     // e.errMsg = ''
                 }else{
                     console.log('y')
@@ -150,10 +180,19 @@ export default {
 
                         this.regInputs[0][0].errMsg = 'Validate email exmaple@mail.com'
                     }
-                    // e.errMsg = 'Email must be valid email exmaple@mail.com'
+                 return false
                 }
         },
-        passordMatch(pass, passTwo){return pass === passTwo }
+        validatePassword(pass){
+           if(pass.val.length >= 5){
+               this.isPassMatch = this.regInputs[1][0].val === this.regInputs[2][0].val
+                    pass.errMsg = ''
+                    return true
+                } else {
+                    pass.errMsg = 'Password needs to be 5 or more char long'
+                    return false
+                }
+        },
 
     },
   
