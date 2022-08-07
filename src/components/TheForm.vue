@@ -184,5 +184,6 @@ bntClicked(value, e){
 .main-container{
     margin: 0 auto;
     width: 380px;
+    background: red;
 }
 </style>

@@ -60,7 +60,7 @@
 
             </div>
                 <div class="text-center" v-if="currentAnagram.length > 0">
-                <!-- <h3>{{currentArray}} {{ currentArray.length}}</h3> -->
+                <h3>{{currentArray}} {{ currentArray.length}}</h3>
            
                     <h2><strong>{{currentAnagram}} </strong> (<span class="anagrams">{{anagramsLeft}}</span> left)</h2>
                 </div>

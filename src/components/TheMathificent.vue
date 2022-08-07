@@ -129,7 +129,9 @@ export default {
         return equation;
     }
  
-  }, unmounted(){clearInterval(this.timer);},
+  },
+  mounted(){document.addEventListener('dblclick', e => {e.preventDefault})},//prevents zoom
+  unmounted(){clearInterval(this.timer);},//turns off timer
   methods:{
     config(){
         this.screen= 'config'
