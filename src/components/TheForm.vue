@@ -1,5 +1,5 @@
 <template>
-<div class="main-container">
+<div class="main-container mx-auto">
     <H1>Contact Us</H1>
 <form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
     <InputBox 
@@ -17,6 +17,7 @@
        
     <div class="text-area-boxes">
          <BaseTextArea 
+         class="message"
             v-for="input in textAreas" 
             :key="input[0].theId"
             :theValue="input[0].val"
@@ -182,8 +183,8 @@ bntClicked(value, e){
 </script>
 <style scoped>
 .main-container{
-    margin: 0 auto;
     width: 380px;
-    background: red;
 }
+
+
 </style>

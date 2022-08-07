@@ -78,15 +78,15 @@ import PlayButton from './PlayButton.vue';
             this.quotesInterval = setInterval(() => {
             let tmp = this.quoteId
               this.quoteId =  randInt(1, 7)
-              console.log('disque random# ' + this.quoteId)
+              // console.log('disque random# ' + this.quoteId)
               if(tmp === this.quoteId){
                 this.quoteId =  randInt(1, 5)
               }
            
                 this.show = !this.show;
-                console.log(this.searchQuote);
+                // console.log(this.searchQuote);
                 this.searchQuote = this.quotes[this.quoteId];
-                console.log("From quotes " + this.quoteId);
+                // console.log("From quotes " + this.quoteId);
                 return this.searchQuote;
             }, 10000);
         },
@@ -94,7 +94,7 @@ import PlayButton from './PlayButton.vue';
     mounted() {
         this.searchQuote = this.quotes[1];
         this.randomQuote();
-        console.log("created...");
+        // console.log("created...");
     },
     unmounted() {
         clearInterval(this.quotesInterval);

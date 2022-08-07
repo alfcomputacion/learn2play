@@ -29,7 +29,7 @@
           <div class="text-center">
               <h2>Time's Up!</h2>
               <strong class="big">You Answered</strong>
-              <div class="huge">{{score}}</div>
+              <div class="font-large text-primary text-bold">{{score}}</div>
               <strong class="big">Anagrams Correctly</strong>
               <div v-if="wordLenghtArrays === 0">Congratulations you guessed all anagrams</div>
               <button class="btn btn-primary form-control m-1"
@@ -60,7 +60,7 @@
 
             </div>
                 <div class="text-center" v-if="currentAnagram.length > 0">
-                <h3>{{currentArray}} {{ currentArray.length}}</h3>
+                <!-- <h3>{{currentArray}} {{ currentArray.length}}</h3> -->
            
                     <h2><strong>{{currentAnagram}} </strong> (<span class="anagrams">{{anagramsLeft}}</span> left)</h2>
                 </div>
@@ -111,7 +111,7 @@ export default {
       input: '',
         answered: false,
         score: 0,
-        gameLength: 100000,
+        gameLength: 2,
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
@@ -213,12 +213,10 @@ export default {
             this.currentArray = firstInside.filter(item => item !== theWord)
             this.anagramsLeft = this.currentArray.length
             
-            console.log(this.currentAnagram)
-            console.log('this is the current array-* ' +  this.guessedArray)
-
-        
+            // console.log(this.currentAnagram)
+            // console.log('this is the current array-* ' +  this.guessedArray)
             this.currentAnagram = theWord
-            console.log(theWord)
+            // console.log(theWord)
 
                 if(this.wordLenghtArrays.length > 0){
                     this.wordLenghtArrays.splice(index,1) //remove array that is been plyaing
@@ -228,13 +226,13 @@ export default {
     },
 startTimer(){
       window.addEventListener('keyup', this.handleKeyUP);
-      console.log(this.timeLeft);
+      // console.log(this.timeLeft);
       this.timeLeft = this.gameLength;
-      console.log(this.timeLeft);
+      // console.log(this.timeLeft);
       if(this.timeLeft > 0){
         this.timer = setInterval(() =>{
           this.timeLeft--;
-          console.log(this.timeLeft);
+          // console.log(this.timeLeft);
           if(this.timeLeft === 0){
             clearInterval(this.timer);
             this.guessedArray = []

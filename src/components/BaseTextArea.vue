@@ -43,8 +43,9 @@
 
 <style scoped>
     textarea{
-        padding-left: .5rem;
+        /* padding-left: .5rem; */
         color: blue;
+        width: 100%;
     }
 
 </style>

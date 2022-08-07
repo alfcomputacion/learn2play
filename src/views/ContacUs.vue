@@ -1,5 +1,5 @@
 <template>
- <div id="m-login" class="main m-t-4 form-control">
+ <div id="m-login" class="main">
     <div class="header-space"></div>    
          <TheForm 
          frmName="Contact us"
@@ -34,7 +34,7 @@ import TheForm from '@/components/TheForm.vue'
                     theId : "alf-msg", 
                     name : "alf-msg", 
                     rows : 4, 
-                    cols : 50, 
+                    cols : 5, 
                     val: '', 
                 type:'textarea', 
                 errMsg:''}]

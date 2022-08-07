@@ -204,13 +204,13 @@ export default {
     },
     startTimer(){
       window.addEventListener('keyup', this.handleKeyUP);
-      console.log(this.timeLeft);
+      // console.log(this.timeLeft);
       this.timeLeft = this.gameLength;
-      console.log(this.timeLeft);
+      // console.log(this.timeLeft);
       if(this.timeLeft > 0){
         this.timer = setInterval(() =>{
           this.timeLeft--;
-          console.log(this.timeLeft);
+          // console.log(this.timeLeft);
           if(this.timeLeft === 0){
             clearInterval(this.timer);
             window.removeEventListener('keyup', this.handleKeyUP)
