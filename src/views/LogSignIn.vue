@@ -40,7 +40,7 @@
                     :errorMsg="input[0].errMsg"
                    @key-is-up="updateErr(input[0])" 
             /> 
-  <template  v-if="!isPassMatch" class="form-group col-12 mx-auto">
+  <template  v-if="regSubmitted && !isPassMatch" class="form-group col-12 mx-auto">
         <p class="text-danger" >Passwords do not match</p>
     </template>
              
@@ -50,7 +50,7 @@
                     <label class="ml-2" for="gamerCh">I am over 13 and like playing games.</label>
                 </div>
                 <!-- !todo NEED FIX IS CHECKED  -->
-                 <template  v-if="!isChecked" class="form-group col-12 mx-auto">
+                 <template  v-if="regSubmitted && !isChecked" class="form-group col-12 mx-auto">
                      <p class="text-danger" >You need to confirm you are at least 13 years old</p>
                 </template>
             <PlayButton :label="regbtn[0].btnLabel" :btnclass="regbtn[0].btnClass" 
@@ -86,13 +86,14 @@ export default {
                 [{input: 'RepPassword', val: '', type: 'password', errMsg:''}]
             ],
             isPassMatch: false,
-            isChecked: true,
+            isChecked: false,
             logbtn: 
                  [{btnClass: 'btn btn-primary form-control col-12 mb-3',btnLabel: 'Log in'}],
             regbtn:  
               [{btnClass: 'btn btn-danger form-control col-12 mb-3',btnLabel: 'Register'}],
             
             submitted: false,
+            regSubmitted: false,
             logErrorDetected: false,
             regErrorDetected: false
         }
@@ -100,8 +101,11 @@ export default {
     methods:{
     submitLogIn(e){
                 // alert('Submitted by: '+e)
-              
+              if(this.show === false){
                 this.submitted = true
+              }else{this.regSubmitted = true}
+                
+
                 this.logErrorDetected = []
                 this.regErrorDetected = []
                 
@@ -115,6 +119,7 @@ export default {
                         alert('You are now Logged in as:  ' + this.logInputs[0][0].val)
                             this.logInputs[0][0].val = ''
                             this.logInputs[1][0].val = ''
+                            this.submitted = false
                         }
                         break;
                     case 'Register':
@@ -126,12 +131,18 @@ export default {
                     //   let passMatch = this.passordMatch(this.regInputs[1][0].val, this.regInputs[2][0].val)
                       this.isPassMatch = this.regInputs[1][0].val === this.regInputs[2][0].val 
                       
-                        if(verRegEmail && verRegPass && verRegPass2 && this.isPassMatch && checked13){
+                        if(verRegEmail && verRegPass && verRegPass2 && this.isPassMatch && this.isChecked){
                             alert('You have been registered as ' + this.regInputs[0][0].val)
                             this.regInputs[0][0].val = ''
                             this.regInputs[1][0].val = ''
                             this.regInputs[2][0].val = ''
+                             this.regSubmitted = false
+                            this.isPassMatch = false 
+                            console.log(this.isChecked)
                             checked13.checked = false
+                            this.isChecked = false
+                            console.log(this.isChecked)
+                            
                         }
                         
                         
@@ -144,7 +155,7 @@ export default {
             },
     updateErr(e){
                 console.log('update error from: ' + e.input)
-    if( this.submitted){ 
+    if( this.submitted || this.regSubmitted ){ 
         switch (e.input) {
             case 'Email':
                 this.validateEmail(e)
@@ -161,7 +172,7 @@ export default {
     }
         },
         validateEmail(email){
-            console.log('este es email from: ' +email.input)
+           
                 if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/.test(email.val)){
                     console.log('x')
                     if(!this.show){
@@ -184,7 +195,7 @@ export default {
                 }
         },
         validatePassword(pass){
-           if(pass.val.length >= 5){
+           if(pass.val.length > 4){
                this.isPassMatch = this.regInputs[1][0].val === this.regInputs[2][0].val
                     pass.errMsg = ''
                     return true
@@ -193,6 +204,12 @@ export default {
                     return false
                 }
         },
+        checkBoxStatus(){
+            if(this.submitted){
+                
+            }
+             
+        }
 
     },
   

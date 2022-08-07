@@ -1,5 +1,6 @@
 <template>
 <div class="main-container">
+    <H1>Contact Us</H1>
 <form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
     <InputBox 
             v-for="input in inputs" 

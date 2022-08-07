@@ -41,8 +41,7 @@ import TheForm from '@/components/TheForm.vue'
                 ],
             
             btns: [
-                [{btnClass: 'form-control btn btn-primary',btnLabel: 'Submit'}],
-                [{btnClass: 'form-control btn btn-warning',btnLabel: 'Cancel'}]
+                [{btnClass: 'form-control btn btn-primary',btnLabel: 'Submit'}]
                 ]
 
         }
