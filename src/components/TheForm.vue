@@ -1,6 +1,6 @@
 <template>
 <div class="main-container mx-auto">
-    <H1>Contact Us</H1>
+    <h1>Contact Us</h1>
 <form :class="frmClass" method="post" action="#" :id="frmId" @submit.stop.prevent="prevent">
     <InputBox 
             v-for="input in inputs" 
@@ -59,7 +59,8 @@ import BaseTextArea from './BaseTextArea.vue'
               inputsReturn: this.inputs,
               textAreasReturn: this.textAreas,
               errorDetected: false,
-              submitted: false 
+              submitted: false,
+            
             }
         },
         components: { InputBox, PlayButton, BaseTextArea },
