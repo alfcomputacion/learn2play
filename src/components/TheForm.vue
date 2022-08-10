@@ -73,10 +73,9 @@ import BaseTextArea from './BaseTextArea.vue'
         },
     
         methods:{
-bntClicked(value, e){
+bntClicked(){
                 //this gives the value of email subject and message inputs
                 //at submit
-                //todo this.errormsg is not updating or is not reactive???
                 this.submitted = true
                 this.errormsg = []
                 console.log('before any if ' + this.errormsg[0])
@@ -99,8 +98,7 @@ bntClicked(value, e){
                 }
 
                 if(this.errorDetected === true ){
-                    
-                //     alert("Message was not sent, Please check your information ")
+                    alert("We couldn't send the Message, Please check your information ")
                 //    this.submitted = true
                 //    console.log('este es errorDetected: ' + this.errorDetected)
                 }else{
@@ -111,11 +109,11 @@ bntClicked(value, e){
                 'Message: ' + this.textAreasReturn[0][0].val + 'Data was sent Thank you...' )
                  this.submitted = false
                  console.log('este es errorDetected: ' + this.errorDetected)
-                 
+                    this.inputsReturn[0][0].val  =''
+                    this.inputsReturn[1][0].val  =''
+                    this.textAreasReturn[0][0].val =''
                 } 
-                this.inputsReturn[0][0].val  =''
-                this.inputsReturn[1][0].val  =''
-                this.textAreasReturn[0][0].val =''
+             
             },
             noDefault(e){
                 e.preventDefault()

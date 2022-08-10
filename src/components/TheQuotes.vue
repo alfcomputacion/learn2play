@@ -2,11 +2,13 @@
     <div class="container">
     <div class="header-space"></div>   
     <div class="quotes">
-         <h2 class="text-center">{{searchQuote.title}}</h2>
-            <p>{{searchQuote.quote}}</p>
-            <div v-if="searchQuote.quote === 'loading...'" class="spinner"></div>
-            <p class="text-right"><em>{{searchQuote.author}}</em></p>
-        </div> 
+      <blockquote class="blockquote">
+        <div v-if="searchQuote.quote === 'loading...'" class="spinner"></div>
+          <p class="mb-0">{{searchQuote.quote}}</p>
+          <footer class="blockquote-footer">{{searchQuote.author}}-
+          <cite title="Source Title">{{searchQuote.title}}</cite></footer>
+      </blockquote>
+    </div> 
            
         <div class="games row">
             <div class="mathificent col-lg-6">

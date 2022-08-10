@@ -96,7 +96,7 @@ margin-bottom: 7rem;
 
   
 }
-/* GLOBAL TRANSITIONS */
+/* GLOBAL SLIDE TRANSITIONS */
   .slide-leave-active,
   .slide-enter-active {
     position: absolute;
@@ -120,7 +120,7 @@ margin-bottom: 7rem;
   .slide-right-leave-active,
   .slide-right-enter-active {
     position: absolute;
-    top: 56px;
+    /* top: 56px; */
     transition: 1s;
     width: 380px;
     filter: blur(2.5px);
@@ -137,4 +137,52 @@ margin-bottom: 7rem;
     transform: translate(-100%, 0);
     filter: blur(2.5px);
   }
+    .big {
+    font-size: 1.5em;
+  }
+  .bigger{
+    font-size: 2em;
+  }
+
+  .huge {
+    font-size: 5em;
+    font-weight: 600;
+    color: #09f;
+  }
+
+  /*#region ANIMATION  */
+#game-points{
+    display: none;
+    opacity: 0;
+    text-shadow: 0 0 0.01rem black;
+}
+
+#game-points{
+    position: absolute;
+    display: flex;
+    top: 40%;
+    left: 75%;
+    color: yellow;
+    z-index: -1000;
+
+}
+
+.animate-minimize{
+    animation: scaledown 2s ease;
+}
+@keyframes scaledown {
+    0%{
+        z-index: 1000;
+        transform: scale(8);
+        opacity: 1;
+    }
+  
+    100%{
+        z-index: 1;
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+/* } */
+/*#endregion ANIMATION  */
 </style>>

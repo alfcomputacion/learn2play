@@ -26,7 +26,7 @@
         <div>
             <h2>Time's Up!</h2>
             <strong class="big">You Answered</strong>
-            <div class="huge">{{score}}</div>
+            <div id="score-id" class="huge">{{score}}</div>
             <strong class="big">Questions Correctly</strong>
             <button class="btn btn-primary form-control m-1"
             @click="restart()">
@@ -71,6 +71,7 @@
             </div>
           </template>
       </transition>
+       <div  id="game-points" class="gameon">1 <strong>++</strong></div>
     </div>
 
   </div>
@@ -136,6 +137,15 @@ export default {
     config(){
         this.screen= 'config'
     },
+     animatePoints(){
+        const score = document.getElementById('game-points');
+            score.className += ' animate-minimize';
+                console.log('answer empty ')
+                setTimeout(() => {
+                    console.log('time is 400');
+                    score.classList.remove('animate-minimize')
+                }, 400);
+    },
 
     play(){
           this.screen = 'play';
@@ -153,6 +163,7 @@ export default {
                                         this.operands);
         if (this.answered) {
           setTimeout(this.newQuestion, 300);
+          this.animatePoints()
           this.score++;
         }
       },
@@ -277,13 +288,7 @@ export default {
     font-size: 1.5em;
   }
 
-  .big {
-    font-size: 1.5em;
-  }
 
-  .huge {
-    font-size: 5em;
-  }
 
 
 </style>

@@ -29,10 +29,10 @@
           <div class="text-center">
               <h2>Time's Up!</h2>
               <strong class="big">You Answered</strong>
-              <div class="font-large text-primary text-bold">{{score}}</div>
+              <div class="huge">{{score}}</div>
               <strong class="big">Anagrams Correctly</strong>
-              <div v-if="wordLenghtArrays === 0">Congratulations you guessed all anagrams</div>
-              <button class="btn btn-primary form-control m-1"
+              <div class="big" v-if="arrayFromAnagrams.length === 0">Congratulations you guessed all "ANAGRAMS" with {{maxNumber}} letters</div>
+              <button class="btn btn-primary form-control m-1"  
               @click="restart()">
               Play Again with Same Settings
               </button>
@@ -67,27 +67,20 @@
           
             <div class="text-center">
             <input autofocus v-model="input" type="text" placeholder="Type here">
-      
+
             </div>  
-    {{input}}
+    <!-- {{input}} -->
+     
               <div v-if="guessedArray.length > 0">
                     <ol>
-                        <li class="text-center" v-for="item in guessedArray" :key="item">{{item}}</li>
+                        <li class="text-center bigger" v-for="item in guessedArray" :key="item">{{item}}</li>
                     </ol>
                 </div>
         </div>
         </template>
         </transition>
-        <transition>
-          <template>
-            <div>
-              <!--! Points  -->
-              <div  id="game-points" class="gameon">2 <strong>++</strong></div>
-              <!-- ! Time -->
-              <div  id="game-time-animation" class="gameon">0</div>
-            </div>
-          </template>
-        </transition>
+        <div  id="game-points" class="gameon">1 <strong>++</strong></div>
+ 
   </div>
 <!-- #endregion div play -->
 </div><!-- end div container -->
@@ -111,7 +104,7 @@ export default {
       input: '',
         answered: false,
         score: 0,
-        gameLength: 2,
+        gameLength: 60,
         timeLeft: 0,
         btnLabel: 'Play!',
         btnClass: 'btn form-control btn-primary',
@@ -143,6 +136,15 @@ export default {
   },
   unmounted(){clearInterval(this.timer);},
   methods:{
+    animatePoints(){
+        const score = document.getElementById('game-points');
+            score.className += ' animate-minimize';
+                console.log('answer empty ')
+                setTimeout(() => {
+                    console.log('time is 400');
+                    score.classList.remove('animate-minimize')
+                }, 400);
+    },
 
     config(){
         this.screen= 'config'
@@ -175,6 +177,7 @@ export default {
     setInput(value) {
        
          if(this.currentArray.find(this.checkAnswer)){
+          this.animatePoints()
             this.guessedArray.push(value)
             this.currentArray = this.currentArray.filter(item => item !== value)
             this.anagramsLeft = this.currentArray.length
@@ -274,71 +277,7 @@ handleKeyUP(e){
     width: 380px;
 }
 
-button.number-button{
-    border-radius: .25em;
-    font-size: 3em;
-    height: 2em;
-    margin: .1em;
-    text-align: center;
-    width: 2em;
-}
-#clear-button{
-    border-radius: .25em;
-    font-size: 3em;
-    margin: .1em;
-    text-align: center;
-    width: 4.2em;
-}
-#scoreboard{
-    font-size: 1.5em;
-}
-#game-points, #game-time-animation,#question-mark{
-    display: none;
-}
-
-/*#endregion Game  */
 
 
-/*todo ANIMATION  */
-/*#region ANIMATION  */
-#game-points{
-    position: absolute;
-    display: flex;
-    top: 40%;
-    left: 75%;
-    color: var(--brigth-y);
-    z-index: -1000;
-
-}
-#game-time-animation{
-position: absolute;
-display: flex;
-top: 50%;
-left: 75%;
-color: var(--brigth-r);
-z-index: -1000;
-
-}
-.animate-seconds{
-    animation: scaledown 2s ease;
-}
-.animate-minimize{
-    animation: scaledown 2s ease;
-}
-@keyframes scaledown {
-    0%{
-        z-index: 1000;
-        transform: scale(8);
-        opacity: 1;
-    }
-  
-    100%{
-        z-index: 1;
-        transform: scale(1);
-        opacity: 0;
-    }
-}
-/* } */
-/*#endregion ANIMATION  */
 
 </style>
